@@ -1,0 +1,25 @@
+name: Unzip Tally
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unzip and move the files to the top of the repository
+        run: |
+          mkdir -p /tmp/x
+          for z in *.zip; do unzip -q -o "$z" -d /tmp/x; done
+          p=$(find /tmp/x -name package.json -not -path '*/node_modules/*' | head -1)
+          if [ -n "$p" ]; then d=$(dirname "$p"); else d=/tmp/x; fi
+          (cd "$d" && tar --exclude=./.github -cf - .) | tar -xf -
+          if [ -d "$d/.github/workflows" ]; then mkdir -p github-workflows && cp "$d"/.github/workflows/*.yml github-workflows/; fi
+          rm -f ./*.zip
+      - name: Save the result
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Unzip Tally" || echo "nothing to commit"
+          git push
