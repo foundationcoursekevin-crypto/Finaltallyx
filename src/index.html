@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Untitled — Tally</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+  <header id="ribbon">
+    <div class="rtabbar">
+      <div class="brand" aria-label="Tally"><span>Tally</span></div>
+      <div class="qat" role="toolbar" aria-label="Quick access">
+        <button class="tb" id="btn-undo" title="Undo (Ctrl+Z)" aria-label="Undo">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5 3 6.5l3 3M3 6.5h5.5a4 4 0 0 1 0 8H6"/></svg>
+        </button>
+        <button class="tb" id="btn-redo" title="Redo (Ctrl+Y)" aria-label="Redo">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m10 3.5 3 3-3 3M13 6.5H7.5a4 4 0 0 0 0 8H10"/></svg>
+        </button>
+      </div>
+      <div class="rtabs" id="rtabs" role="tablist" aria-label="Ribbon tabs"></div>
+      <div class="docname" id="docname" aria-live="polite"></div>
+      <div class="rtbreak" aria-hidden="true"></div>
+      <button class="tb ribbon-toggle" id="btn-ribbon-toggle" type="button" title="Hide ribbon (Ctrl+F1)" aria-label="Hide ribbon" aria-expanded="true" aria-controls="rbody">
+        <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.5 10.5 4.5-4.5 4.5 4.5"/></svg>
+      </button>
+    </div>
+    <div class="rbody" id="rbody"></div>
+  </header>
+
+  <div id="formulabar">
+    <input id="namebox" type="text" spellcheck="false" autocomplete="off" aria-label="Selected cell">
+    <span class="fx" aria-hidden="true">fx</span>
+    <input id="bar" type="text" spellcheck="false" autocomplete="off" aria-label="Cell contents">
+    <div class="fsearch">
+      <input id="fsearch" type="text" role="combobox" aria-expanded="false" aria-controls="fresults" aria-autocomplete="list" spellcheck="false" autocomplete="off" placeholder="Search formulas: total, if, date…" aria-label="Search formulas">
+    </div>
+  </div>
+  <div id="fresults" class="fresults" role="listbox" aria-label="Formulas" hidden></div>
+
+  <div id="main">
+    <div id="grid-wrap" tabindex="0" aria-label="Spreadsheet grid">
+      <div id="sheet">
+        <table id="grid"></table>
+        <div id="sel"></div>
+        <div id="tallychip" class="tallychip" hidden></div>
+        <input id="editor" type="text" spellcheck="false" autocomplete="off" aria-label="Edit cell" hidden>
+      </div>
+    </div>
+    <aside id="charts" aria-label="Charts" hidden>
+      <div class="charts-head">
+        <h2>Charts</h2>
+        <button class="tb" id="btn-charts-close" title="Close charts" aria-label="Close charts">×</button>
+      </div>
+      <p class="empty" id="charts-empty">Select cells and choose Chart to add one.</p>
+      <div id="charts-list"></div>
+    </aside>
+  </div>
+
+  <footer id="status">
+    <span id="status-msg" role="status" aria-live="polite"></span>
+    <span id="status-agg"></span>
+  </footer>
+</div>
+<script src="numfmt.js"></script>
+<script src="engine.js"></script>
+<script src="helpers.js"></script>
+<script src="charts.js"></script>
+<script src="theme.js"></script>
+<script src="crypto.js"></script>
+<script src="xlsx.js"></script>
+<script src="formulas.js"></script>
+<script src="browser-bridge.js"></script>
+<script src="app.js"></script>
+<script src="format-ui.js"></script>
+<script src="ribbon-toggle.js"></script>
+</body>
+</html>
